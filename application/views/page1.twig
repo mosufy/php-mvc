@@ -1,0 +1,15 @@
+{% extends "_templates/base.twig" %}
+{% block content %}
+<div class="content">
+  <h1>This is page 1</h1>
+  <p>Controller: page1.php</p>
+  <p>Method: index()</p>
+  <p>Views: page1.twig</p>
+  <p>List of Items available</p>
+  <ul>
+    {% for k in itemsList %}
+    <li><a href="{{ k['slug'] }}">{{ k['itemName'] }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

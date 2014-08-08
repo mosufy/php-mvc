@@ -1,0 +1,11 @@
+<div class="content nav">
+  <div class="mobile menubar"><img src="img/menu-mobile.png" onClick="toggleMenuBar();"></div>
+  <a href="/"><img src="img/logo.png" class="logo"></a>
+  <ul id="nav">
+    <li{% if page=='page1' %} class="selected"{% endif %}><a href="page1/">Page 1</a></li>
+    <li{% if page=='page2' %} class="selected"{% endif %}><a href="page2/">Page 2</a></li>
+    <li{% if page=='page3' %} class="selected"{% endif %}><a href="page3/">Page 3</a></li>
+    <li{% if page=='page4' %} class="selected"{% endif %}><a href="page4/">Page 4</a></li>
+    <li{% if page=='account' %} class="selected"{% endif %}><a href="account/dashboard/">My Account</a></li>
+  </ul>
+</div>

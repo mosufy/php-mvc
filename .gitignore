@@ -1,0 +1,9 @@
+/application/tmp/cache/*
+/application/tmp/errors/*
+/application/tmp/sessions/*
+/application/tmp/uploads/*
+/application/config/config.php
+/vendor
+/_docs
+/composer.lock
+!.gitignore

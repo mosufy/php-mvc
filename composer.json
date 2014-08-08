@@ -1,0 +1,20 @@
+{
+    "name": "mosufy/php-mvc",
+    "type": "project",
+    "description": "A simple PHP MVC boilerplate",
+    "keywords": ["mvc", "skeleton", "boilerplate", "naked", "barebone", "application"],
+    "homepage": "https://github.com/mosufy/php-mvc",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mosufy",
+            "homepage": "http://www.mohdsufiyan.com",
+            "role": "Developer"
+        }
+    ],
+	"minimum-stability" : "stable",
+    "require": {
+        "php": ">=5.3.0",
+        "twig/twig": "1.*"
+    }
+}
