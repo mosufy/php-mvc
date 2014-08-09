@@ -58,7 +58,7 @@ class Application
           $Home->$method();
         } else {
           // direct item is served. Eg.; www.domain.com/item-1
-          $Home->index($this->url_controller);
+          $Home->index($this->url_1_raw);
         }
       }
     }
@@ -95,6 +95,7 @@ class Application
       $this->url_parameter_1 = (isset($url[2]) ? $url[2] : null);
       $this->url_parameter_2 = (isset($url[3]) ? $url[3] : null);
       $this->url_parameter_3 = (isset($url[4]) ? $url[4] : null);
+      $this->url_1_raw = ($url[0]); // Untouched original url. E.g; projectname.com/this-is-item-1
     }
   }
   
