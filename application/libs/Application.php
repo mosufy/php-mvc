@@ -22,9 +22,7 @@ class Application
     if (file_exists('./application/controller/' . $this->url_controller . '.php')){
       // if so, then load this file and create this controller
       // example: if controller would be "Item", then this line would translate into: $this->Item = new Item();
-      require './application/controller/' . $this->url_controller . '.php';
-      $classObject = implode('\\', array_map('ucfirst', explode('/', $this->url_controller)));
-      $this->url_controller = str_replace('\\','',$classObject);
+      $classObject = implode('_', array_map('ucfirst', explode('/', $this->url_controller)));
       $this->url_controller = new $classObject();
       
       // check for method: does such a method exist in the controller ?
@@ -49,19 +47,18 @@ class Application
       }
     } else {
       // invalid URL, so simply show home/index
-      require './application/controller/home.php';
       $Home = new Home();
       if (empty($this->url_controller)){
         // empty URL, so simply show home->index()
         $Home->index();
       } else {
-        $method = $this->convertMethodName($this->url_controller);
+        $method = $this->convertCamelCase($this->url_controller);
         if (method_exists($Home, $method)){
           // Check if method exists in home. If yes, serve the method. Eg.; www.domain.com/method-name
           $Home->$method();
         } else {
           // direct item is served. Eg.; www.domain.com/item-1
-          $Home->index($this->url_controller);
+          $Home->index($this->url_1_raw);
         }
       }
     }
@@ -81,33 +78,37 @@ class Application
         // check if $url[0] is calling for any of the reserved controllers
         if ($url[0]=='api' || $url[0]=='account' || $url[0]=='admin'){
           // replace the url to "controller-safe" naming convention
-          $this->url_controller = $url[0] .'_'. (isset($url[1])? $this->convertMethodName($url[1]) : ($url[0] == 'api'? 'v1':'dashboard'));
+          $this->url_controller = $this->convertCamelCase($url[0],true) .'/'. (isset($url[1])? $this->convertCamelCase($url[1],true) : ($url[0] == 'api'? 'V1':'Dashboard'));
           $url = array_splice($url,1);
         } else {
           // the first url is the controller
-          $this->url_controller = $url[0];
+          $this->url_controller = $this->convertCamelCase($url[0],true);
         }
       } else {
         $this->url_controller = null;
       }
       
       // sets the action (method). method will call index if no method is set
-      $this->url_action = (isset($url[1]) ? (isset($url[1]) ? $this->convertMethodName($url[1]) : 'index') : null);
+      $this->url_action = (isset($url[1]) ? (isset($url[1]) ? $this->convertCamelCase($url[1]) : 'index') : null);
       // opens this file. set to home if not set
       $this->url_file_name = (isset($url[1]) ? $url[1] : 'home');
       $this->url_parameter_1 = (isset($url[2]) ? $url[2] : null);
       $this->url_parameter_2 = (isset($url[3]) ? $url[3] : null);
       $this->url_parameter_3 = (isset($url[4]) ? $url[4] : null);
+      $this->url_1_raw = ($url[0]); // Untouched original url. E.g; projectname.com/this-is-item-1
     }
   }
   
   /**
-  * Converts from URL name to Method Name
-  * E.g; about-us ==> aboutUs
+  * Converts from URL name to Controller Name
+  * E.g; about-us ==> AboutUs (CamelCase)
   */
-  private function convertMethodName($url)
+  private function convertCamelCase($url,$capitalizeFirstCharacter = false)
   {
-    $methodName = lcfirst(str_replace('-','',implode('-', array_map('ucfirst', explode('-', $url)))));
-    return $methodName;
+    $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $url)));
+    if (!$capitalizeFirstCharacter){
+      $str = lcfirst($str);
+    }
+    return $str;
   }
 }

@@ -10,8 +10,8 @@ class Account_Dashboard extends Account_Base
 		parent::__construct();
 	}
     
-    public function index()
-    {		
+  public function index()
+  {		
 		$this->render($this->_pathFile . $this->_page, array(
 			'metaTitle' => 'Welcome to the Dashboard',
 			'std' => $this->setCommonVars(),
@@ -19,5 +19,5 @@ class Account_Dashboard extends Account_Base
 			'subPage' => 'dashboard',
 			'breadcrumb' => array('My Account'=>'account','Dashboard'=>'')
 		));
-    }
+  }
 }
