@@ -1,12 +1,6 @@
-PHP-MVC Barebone Framework
-==============
-
-
 In Summary
 --------------
 Provides basic, barebone essentials to run a project quickly.
-
-Live example: [http://php-mvc.mohdsufiyan.com/](http://php-mvc.mohdsufiyan.com/)
 
 
 Why use this framework over others
