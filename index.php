@@ -26,8 +26,13 @@ function autoload($class_name){
   }
 } spl_autoload_register("autoload");
 
-// load application config (error reporting etc.)
-require 'application/config/config.php';
+// load application config
+if (is_readable('application/config/config.php')) {
+  require 'application/config/config.php';
+} else {
+  echo 'Error: Missing config.php. Please create /application/config/config.php';
+  exit;
+}
 
 // initialize bootstrap
 $app = new Bootstrap();
