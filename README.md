@@ -62,10 +62,10 @@ How to Install
 1. Download the latest release here > https://github.com/mosufy/php-mvc/releases
 2. Unzip and push/upload to your remote or local server
 3. Install dependencies via Composer
-        
+  ```
   $ cd /path/to/folder/php-mvc
   $ sudo composer install
-        
+  ```
 4. Duplicate config-sample.php and rename as config.php
         
   $ sudo cp /application/config/config-sample.php /application/config/config.php
