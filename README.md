@@ -19,14 +19,14 @@ Use Case Scenarios
 ------------------
 The front-controller is able to translate any of these structures as defined
 
-- domain.com/
-
-        HomeController->index();
-
-- domain.com/this-is-an-item
-
-        HomeController->index('this-is-an-item');
-
+domain.com/
+```
+HomeController->index();
+```
+domain.com/this-is-an-item
+```
+HomeController->index('this-is-an-item');
+```
 - domain.com/catalogue/
 
         CatalogueController->index();
@@ -62,14 +62,15 @@ How to Install
 1. Download the latest release here > https://github.com/mosufy/php-mvc/releases
 2. Unzip and push/upload to your remote or local server
 3. Install dependencies via Composer
-  ```
-  $ cd /path/to/folder/php-mvc
-  $ sudo composer install
-  ```
-4. Duplicate config-sample.php and rename as config.php
-        
-  $ sudo cp /application/config/config-sample.php /application/config/config.php
 
+        $ cd /path/to/folder/php-mvc
+        $ sudo composer install
+
+4. Duplicate config-sample.php and rename as config.php
+  
+  ```      
+  $ sudo cp /application/config/config-sample.php /application/config/config.php
+  ```
   Update the configurations as required
 5. Import/run MySQL structure provided in /application/db/sample.sql
 6. Update nginx server block as defined below
