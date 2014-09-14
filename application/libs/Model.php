@@ -1,6 +1,7 @@
 <?php
  
-class Model {
+class Model
+{
   protected $db = null;
   protected $_memcache = null;
   
@@ -22,8 +23,14 @@ class Model {
   {
     // checks if connection already existing
     if (!$this->db){
-      $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-      $this->db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, $options);
+      try {
+        $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+        $this->db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, $options);
+      } catch (Exception $e){
+        error_log("File: \"". $e->getFile() ."\" Line: \"". $e->getLine()."\" Message: \"". $e->getMessage()."\"");
+        echo 'Database connection error.';
+        exit;
+      }
     }
   }
 }

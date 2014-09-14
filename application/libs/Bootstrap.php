@@ -18,7 +18,7 @@ class Bootstrap
     error_reporting(E_ALL);
     ini_set('display_errors','On');
     ini_set('log_errors', 'On');
-    ini_set('error_log', './application/tmp/errors/error_'.date('Ymd').'.log');
+    ini_set('error_log', ROOT . './application/tmp/errors/error_'.date('Ymd').'.log');
   }
   
   /**
@@ -27,7 +27,7 @@ class Bootstrap
   */
   private function setSessionPath()
   {
-    ini_set('session.save_path','./application/tmp/sessions');
+    ini_set('session.save_path',ROOT . '/application/tmp/sessions');
   }
   
   /**

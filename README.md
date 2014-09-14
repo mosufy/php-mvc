@@ -1,97 +1,120 @@
-In Summary
---------------
-Provides basic, barebone essentials to run a project quickly.
+PHP-MVC Bare-bone Framework
+===========================
+Provides basic, bare-bone essentials to run any web project quickly.
 
-
-Why use this framework over others
---------------
-- Flexible Controller
-- User-friendly URLs
+Why this framework over others
+----------------------------------
+- Basic and simple MVC concept
+- User-friendly URL structure
 - Utilizes Composer to install dependancies
-- Uses Twig with cache as a templating engine
-- Seperation of concerns (like other MVC Frameworks)
+- Utilizes Twig with cache as a PHP template for views
 - Utilizes Memcached (optional)
 - Utilizes PHP PDO for prepared statement
-- Simple, straight-forward, as per needs basis approach
-- Built-in responsive design (follow the sample /application/views/ folder for inspiration
 
-Flexible Controller
+Built for LEMP Stack
+--------------------
+This Framework is built with the new and powerful nginx in mind. It does not use any .htaccess with mod-rewrite. Simply set the root path to /public and the front-controller will take care of the rest. Apache servers may still be able to use this Framework. See below for nginx configuration.
+
+Use Case Scenarios
+------------------
+The front-controller is able to translate any of these structures as defined
+
+- domain.com/
+				HomeController->index();
+- domain.com/this-is-an-item
+				HomeController->index('this-is-an-item');
+- domain.com/catalogue/
+				CatalogueController->index();
+- domain.com/catalogue/author/
+				CatalogueController->author();
+- domain.com/catalogue/author/jk-rowling
+				CatalogueController->author('jk-rowling');
+- domain.com/catalogue/category/
+				CatalogueController->category();
+- domain.com/catalogue/category/non-fiction
+				CatalogueController->category('non-fiction');
+
+As you would have noticed, these rules applies.
+
+- The first parameter defines the Controller name and this file can be found in /application/controller/
+- The second parameter defines the method to call (function) within the parent Class
+- The third and above parameters will simply be attached as variable parameters to the method
+- Should the first parameter not exist, it will automatically assigned to the HomeController
+- Should the first parameter exist but is not found as a controller, it will be regarded as an item and fall under HomeController
+
+Having such a setup allows the stakeholder to define the URL naming structure as he sees fit. This is especially useful for vanity URLs.
+
+How to Install
 --------------
-There are many ways that you can approach when designing your project depending on your requirement. Use the different scenarios without having to change any settings.
+1. Download the latest release here > https://github.com/mosufy/php-mvc/releases
+2. Unzip and push/upload to your remote or local server
+3. Install dependencies via Composer
 
-**Scenario 1:**
-You just need to create a simple 5-page static website with just a single Controller to display 5 seperate pages. This can be easily achieved by having multiple methods in your application/controller/home.php as such:
-	
-	// URL: http://www.projectname.com/
-	public function index()
-    {
-        $this->render('home', array(
-			'metaTitle' => 'Hello World',
-			'metaDescription' => 'This is the homepage'
-		));
-	}
-	
-	// URL: http://www.projectname.com/about-us/
-	public function aboutUs()
-    {
-        $this->render('about-us', array(
-			'metaTitle' => 'About Us page',
-			'metaDescription' => 'This is the About Us page'
-		));
-	}
-	
-	// URL: http://www.projectname.com/our-services/
-	public function ourServices()
-    {
-        $this->render('our-services', array(
-			'metaTitle' => 'Our Services page',
-			'metaDescription' => 'This is the Our Services page'
-		));
-	}
+				$ cd /path/to/folder/php-mvc
+				$ sudo composer install
 
-By using this approach, you just need a single Controller to display 5 Views.
+4. Duplicate config-sample.php and rename as config.php
 
-**Scenario 2:**
-Every page holds unique content and you need to seperate the Controllers. This can be easily achieved by simply creating multiple Controllers, each calling its own View as such:
+				$ sudo cp /application/config/config-sample.php /application/config/config.php
 
-Controller 1: home.php
-	
-	// URL: http://www.projectname.com/
-	public function index()
-    {
-        $this->render('home', array(
-			'metaTitle' => 'Hello World',
-			'metaDescription' => 'This is the homepage'
-		));
-	}
+	Update the configurations as required
+5. Import/run MySQL structure provided in /application/db/sample.sql
+6. Update nginx server block as defined below
 
-Controller 2: aboutUs.php
+Nginx Server Block
+------------------
+A slight tweak to the server block is required to make this work.
+```
+location / {
+	root /path/to/folder/public		# ensure root points to the public folder
 	
-	// URL: http://www.projectname.com/about-us/
-	public function index()
-    {
-        $this->render('about-us', array(
-			'metaTitle' => 'About Us page',
-			'metaDescription' => 'This is the About Us page'
-		));
-	}
-	
-Controller 3: ourServices.php
-	
-	// URL: http://www.projectname.com/our-services/
-	public function index()
-    {
-        $this->render('our-services', array(
-			'metaTitle' => 'Our Services page',
-			'metaDescription' => 'This is the Our Services page'
-		));
-	}
+	location / {
+    try_files $uri $uri/ @mvcrewrite;
+  }
 
-By using this approach, each "page" request has its own methods. This would be great for complex applications.
-	
-User-friendly URLs sample
---------------
-	http://www.projectname.com/
-	http://www.projectname.com/men/
-	http://www.projectname.com/men/clothes/
-	http://www.projectname.com/Basic-Short-Sleeve-Shirt-325
+  location @mvcrewrite {
+    rewrite ^(.+)$ /index.php?url=$1 last;
+  }
+}
+```
+Here's a full sample template
+```
+server {
+  listen 80;
+  listen [::]:80;
+
+  root /var/www/domain_name/public;
+  index index.php index.html index.htm;
+
+  server_name domain_name.com;
+  access_log /var/log/nginx/domain_name-access.log;
+  error_log /var/log/nginx/domain_name-error.log;
+
+  location / {
+    try_files $uri $uri/ @mvcrewrite;
+  }
+
+  location @mvcrewrite {
+    rewrite ^(.+)$ /index.php?url=$1 last;
+  }
+
+  error_page 404 /404.html;
+  error_page 500 502 503 504 /50x.html;
+  location = /50x.html {
+    root /usr/share/nginx/html;
+  }
+
+  location ~ \.php$ {
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+  }
+
+  # deny access to .htaccess files to prevent conflict
+  location ~ /\.ht {
+    deny all;
+  }
+}
+```

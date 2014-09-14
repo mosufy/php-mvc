@@ -1,27 +1,23 @@
 <?php
 
 /**
- * Configuration for: AesEncryption
- * AES_KEY is a 32-character (256-bit) encryption private key. Use for PHP Encryption
+ * 32-character (256-bit) encryption private key. Use for PHP Encryption
  * Every new project should have its unique key
  */
 define('AES_KEY', 'YOEHaOJ26QN41i54G1JlS8x0MB4XNfcL');
 
 /**
- * Configuration for: MEMCACHE
- * This is used to seperate the Memcache naming so it does not conflict with other memcache services
+ * This is used to seperate the Memcache naming so it does not conflict with other apps using the same Memcache services
  * Every new project should have its own name
  */
-define('MEM', 'PHPMVC_');
+define('MEM', 'MVC_');
 
 /**
- * Configuration for: Default TimeZone
  * Set the default timezone to use for scripting
  */
 define('DEFAULT_TIMEZONE','Asia/Singapore');
 
 /**
- * Configuration for: Database
  * This is the place where you define your database credentials, database type etc.
  */
 define('DB_TYPE', 'mysql');
@@ -30,24 +26,28 @@ define('DB_NAME', '');
 define('DB_USER', '');
 define('DB_PASS', '');
 
-/**
- * Configuration for: HTTP_PROTOCOL
- * DO NOT AMEND. Define the actual protocol in use. .htaccess is already converting http into https
- */
-define('HTTP_PROTOCOL',(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://");
+///////////////////////////////////////////////////
+// ANYTHING BELOW THIS LINE SHOULD BE LEFT AS IS //
+///////////////////////////////////////////////////
 
 /**
- * Configuration for: URL
- * DO NOT AMEND. This will help to define the BASE URL
+ * Automatically defines the actual protocol to use E.g; "http://" or "https://"
+ * HTTP_PROTOCOL_SECURE is especially useful for setting secured COOKIE
+ */
+define('HTTP_PROTOCOL',(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://");
+define('HTTP_PROTOCOL_SECURE', HTTP_PROTOCOL=='https://'? TRUE:FALSE);
+
+/**
+ * Automatically define the BASE URL E.g; "http://www.domain.com/"
+ * DOMAIN will take from HTTP_HOST. DOMAIN is especially useful for setting COOKIE
  */
 define('URL', HTTP_PROTOCOL . $_SERVER['HTTP_HOST'] . '/');
 
 /**
- * Configuration for: Twig Views
  * PATH_VIEWS is the path where your view files are. Don't forget the trailing slash!
  * PATH_VIEW_FILE_TYPE is the ending of your view files, like .php, .twig or similar.
  * PATH_VIEW_TWIG_CACHE to store your twig caches.
  */
-define('PATH_VIEWS', 'application/views');
+define('PATH_VIEWS', ROOT . '/application/views/');
 define('PATH_VIEW_FILE_TYPE', '.twig');
-define('PATH_VIEW_TWIG_CACHE', 'application/tmp/cache');
+define('PATH_VIEW_TWIG_CACHE', ROOT . '/application/tmp/cache/');
