@@ -9,7 +9,7 @@ Why this framework over others
 - Utilizes Composer to install dependancies
 - Utilizes Twig with cache as a PHP template for views
 - Utilizes Memcached (optional)
-- Utilizes PHP PDO for prepared statement
+- Utilizes PHP PDO as prepared statement
 
 Built for LEMP Stack
 --------------------
@@ -20,19 +20,32 @@ Use Case Scenarios
 The front-controller is able to translate any of these structures as defined
 
 - domain.com/
-				HomeController->index();
+
+        HomeController->index();
+
 - domain.com/this-is-an-item
-				HomeController->index('this-is-an-item');
+
+        HomeController->index('this-is-an-item');
+
 - domain.com/catalogue/
-				CatalogueController->index();
+
+        CatalogueController->index();
+
 - domain.com/catalogue/author/
-				CatalogueController->author();
+
+        CatalogueController->author();
+
 - domain.com/catalogue/author/jk-rowling
-				CatalogueController->author('jk-rowling');
+
+        CatalogueController->author('jk-rowling');
+
 - domain.com/catalogue/category/
-				CatalogueController->category();
+
+        CatalogueController->category();
+
 - domain.com/catalogue/category/non-fiction
-				CatalogueController->category('non-fiction');
+
+        CatalogueController->category('non-fiction');
 
 As you would have noticed, these rules applies.
 
@@ -49,15 +62,15 @@ How to Install
 1. Download the latest release here > https://github.com/mosufy/php-mvc/releases
 2. Unzip and push/upload to your remote or local server
 3. Install dependencies via Composer
-
-				$ cd /path/to/folder/php-mvc
-				$ sudo composer install
-
+        
+  $ cd /path/to/folder/php-mvc
+  $ sudo composer install
+        
 4. Duplicate config-sample.php and rename as config.php
+        
+  $ sudo cp /application/config/config-sample.php /application/config/config.php
 
-				$ sudo cp /application/config/config-sample.php /application/config/config.php
-
-	Update the configurations as required
+  Update the configurations as required
 5. Import/run MySQL structure provided in /application/db/sample.sql
 6. Update nginx server block as defined below
 
@@ -66,9 +79,9 @@ Nginx Server Block
 A slight tweak to the server block is required to make this work.
 ```
 location / {
-	root /path/to/folder/public		# ensure root points to the public folder
-	
-	location / {
+  root /path/to/folder/public   # ensure root points to the public folder
+
+  location / {
     try_files $uri $uri/ @mvcrewrite;
   }
 
