@@ -58,6 +58,8 @@ Having such a setup allows the stakeholder to define the URL naming structure as
 
 How to Install
 --------------
+*Disclaimer: Please note that this framework is stil in development and not ready for deployment.*
+
 1. Download the latest release here > https://github.com/mosufy/php-mvc/releases
 2. Unzip and push/upload to your remote or local server
 3. Install dependencies via Composer
