@@ -17,38 +17,37 @@ This Framework is built with the new and powerful nginx in mind. It does not use
 
 Use Case Scenarios
 ------------------
-The front-controller is able to translate any of these structures as defined
+The front-controller is able to translate any of these structures as defined:
 
-domain.com/
+**domain.com/**
 ```
 HomeController->index();
 ```
-domain.com/this-is-an-item
+**domain.com/this-is-an-item**
 ```
 HomeController->index('this-is-an-item');
 ```
-- domain.com/catalogue/
-
-        CatalogueController->index();
-
-- domain.com/catalogue/author/
-
-        CatalogueController->author();
-
-- domain.com/catalogue/author/jk-rowling
-
-        CatalogueController->author('jk-rowling');
-
-- domain.com/catalogue/category/
-
-        CatalogueController->category();
-
-- domain.com/catalogue/category/non-fiction
-
-        CatalogueController->category('non-fiction');
-
-As you would have noticed, these rules applies.
-
+**domain.com/catalogue/**
+```
+CatalogueController->index();
+```
+**domain.com/catalogue/author/**
+```
+CatalogueController->author();
+```
+**domain.com/catalogue/author/jk-rowling**
+```
+CatalogueController->author('jk-rowling');
+```
+**domain.com/catalogue/category/**
+```
+CatalogueController->category();
+```
+**domain.com/catalogue/category/non-fiction**
+```
+CatalogueController->category('non-fiction');
+```
+As you would have noticed, these rules applies:
 - The first parameter defines the Controller name and this file can be found in /application/controller/
 - The second parameter defines the method to call (function) within the parent Class
 - The third and above parameters will simply be attached as variable parameters to the method
@@ -63,8 +62,10 @@ How to Install
 2. Unzip and push/upload to your remote or local server
 3. Install dependencies via Composer
 
-        $ cd /path/to/folder/php-mvc
-        $ sudo composer install
+  ```
+  $ cd /path/to/folder/php-mvc
+  $ sudo composer install
+  ```
 
 4. Duplicate config-sample.php and rename as config.php
   
@@ -72,7 +73,7 @@ How to Install
   $ sudo cp /application/config/config-sample.php /application/config/config.php
   ```
   Update the configurations as required
-5. Import/run MySQL structure provided in /application/db/sample.sql
+5. Import/run the MySQL schema provided in /application/db/db_phpmvc.sql
 6. Update nginx server block as defined below
 
 Nginx Server Block
