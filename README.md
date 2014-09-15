@@ -10,6 +10,7 @@ Why this framework over others
 - Utilizes Twig with cache as a PHP template for views
 - Utilizes Memcached (optional)
 - Utilizes PHP PDO as prepared statement
+- Pre-loaded with Twitter Bootstrap
 
 Built for LEMP Stack
 --------------------
