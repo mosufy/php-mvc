@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP MVC Bare-bone Framework
+ * PHP MVC Barebone Framework
  *
  * @package php-mvc
  * @author mosufy

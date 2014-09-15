@@ -69,9 +69,9 @@ class Book extends Model
     $stmt = $this->db->prepare('
       SELECT *
       FROM books
-      WHERE B.name_slug = ? AND is_active=1
+      WHERE B.bookSlug = ? AND is_active=1
     ');
-    $stmt->db->execute(array($bookName));
+    $stmt->execute(array($bookName));
     $db = $stmt->fetch(PDO::FETCH_ASSOC);
   
     if ($this->_memcache) $this->_memcache->set($key, $db, 3600);

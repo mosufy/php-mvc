@@ -10,7 +10,7 @@ define('AES_KEY', 'YOEHaOJ26QN41i54G1JlS8x0MB4XNfcL');
  * This is used to seperate the Memcache naming so it does not conflict with other apps using the same Memcache services
  * Every new project should have its own name
  */
-define('MEM', 'MVC_');
+define('MEM', 'PHPMVC_');
 
 /**
  * Set the default timezone to use for scripting
@@ -31,11 +31,10 @@ define('DB_PASS', '');
 ///////////////////////////////////////////////////
 
 /**
- * Automatically defines the actual protocol to use E.g; "http://" or "https://"
- * HTTP_PROTOCOL_SECURE is especially useful for setting secured COOKIE
+ * Automatically defines the actual protocol to use 
+ * E.g; "http://" or "https://"
  */
 define('HTTP_PROTOCOL',(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://");
-define('HTTP_PROTOCOL_SECURE', HTTP_PROTOCOL=='https://'? TRUE:FALSE);
 
 /**
  * Automatically define the BASE URL E.g; "http://www.domain.com/"

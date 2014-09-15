@@ -16,7 +16,7 @@ class HomeController extends BaseController
   }
 	
   // http://domain.com/book-name
-  private function displayBook($bookName)
+  private function displayItem($bookName)
   {
     $Book = new Book();
     $bookData = $Book->selectBookData($bookName);

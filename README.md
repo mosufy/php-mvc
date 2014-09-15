@@ -1,6 +1,6 @@
-PHP-MVC Bare-bone Framework
+PHP-MVC Barebone Framework
 ===========================
-Provides basic, bare-bone essentials to run any web project quickly.
+Provides basic, barebone essentials to run any web project quickly.
 
 Why this framework over others
 ----------------------------------

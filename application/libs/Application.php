@@ -21,7 +21,7 @@ class Application
     $this->splitUrl();
     
     // check for controller: does such a controller exist?
-    if (file_exists(ROOT . '/application/controller/' . $this->_controller . '.php')){
+    if (file_exists(ROOT . '/application/controller/' . str_replace('\\','/',$this->_controller) . '.php')){
       // if so, then load this file and create this controller
       // example: if controller would be "Book", then this line would translate into: $Book = new Book();
       $this->Controller = new $this->_controller();
@@ -44,8 +44,8 @@ class Application
         }
       } else {
         // default/fallback: call the index() method of a selected controller
-        if (isset($this->_parameter_1)){
-          $this->Controller->index($this->_parameter_1);
+        if (isset($this->_action)){
+          $this->Controller->index($this->_action);
         } else {
           $this->Controller->index();
         }
@@ -77,9 +77,17 @@ class Application
       $url = trim($_GET['url'], '/');
       $url = filter_var($url, FILTER_SANITIZE_URL);
       $url = explode('/', $url);
+
+      // Check if first parameter corresponds to the folder structure in Controller
+      if ($url[0]=='v1'){
+        $this->_controller_raw = isset($url[1]) ? $url[1] : null;
+        $this->_controller = 'V1' . (isset($url[1])? '\\'.$this->camelCase($url[1],true) . 'Controller' : '');
+        $url = array_splice($url,1);
+      } else {
+        $this->_controller_raw = isset($url[0]) ? $url[0] : null;
+        $this->_controller = isset($url[0]) ? $this->camelCase($url[0],true) . 'Controller' : null;
+      }
       
-      $this->_controller_raw = isset($url[0]) ? $url[0] : null;
-      $this->_controller = isset($url[0]) ? $this->camelCase($url[0],true) . 'Controller' : null;
       $this->_action = isset($url[1]) ? $this->camelCase($url[1]) : null;
       $this->_parameter_1 = isset($url[2]) ? $this->camelCase($url[2]) : null;
       $this->_parameter_2 = isset($url[3]) ? $this->camelCase($url[3]) : null;
@@ -89,7 +97,7 @@ class Application
   
   /**
   * Converts string to camelCase
-  * E.g; about-us ==> AboutUs / aboutUs
+  * E.g; about-us ==> AboutUs / aboutUs depending on 2nd parameter
   */
   private function camelCase($url, $capitalizeFirstCharacter=false)
   {
