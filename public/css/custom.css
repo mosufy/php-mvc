@@ -1,3 +1,54 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
 body {
   font-family: 'Open Sans', sans-serif;
+}
+
+/* CAROUSEL
+-------------------------------------------------- */
+.carousel-inner > .item h1 {
+  font-weight: 700;
+}
+.carousel-inner > .item {
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.carousel-inner > .item:first-child {
+  background-image: url(../img/bg-singapore.jpg);
+}
+.carousel-inner > .item:nth-child(2) {
+  background-image: url(../img/bg-restfulapi.jpg);
+}
+.carousel-inner > .item:nth-child(3) {
+  background-image: url(../img/bg-nginx-apache.jpg);
+}
+
+/* Featurettes
+------------------------- */
+.featurette h2 span {
+  font-weight: 300;
+}
+
+.pushTop {
+  padding-top: 90px;
+}
+
+
+@media(max-width:767px){
+}
+@media(min-width:768px){
+  .carousel-inner > .item h1 {
+    font-size: 48px;
+  }
+}
+@media(min-width:992px){
+  .carousel-inner > .item h1 {
+    font-size: 64px;
+  }
+}
+@media(min-width:1200px){
+
 }

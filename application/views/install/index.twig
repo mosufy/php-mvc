@@ -1,0 +1,75 @@
+{% extends "_templates/base.twig" %}
+{% block content %}
+
+<div class="container pushTop">
+
+  <!-- breadcrumb -->
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li class="active">Install</li>
+  </ol>
+
+  <!-- jumbotron -->
+  <div class="jumbotron">
+    <h1>Installation Instructions</h1>
+    <p>A step-by-step instructions to installing and using the mosufy/PHP-MVC barebone framework. Find out more</p>
+    <p><a href="https://github.com/mosufy/php-mvc" class="btn btn-primary btn-lg" role="button">View Source on GitHub</a></p>
+  </div>
+
+  <!-- content -->
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Step 1: Download</h2>
+      <p>Simply download the latest release of the repo on GitHub <a href="https://github.com/mosufy/php-mvc/releases">here</a> and extract to your project directory.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Step 2: Install dependencies</h2>
+      <p>This framework relies on a couple of 3rd party dependencies. Simply install these depedencies via composer</p>
+      <pre>$ cd /var/www/{project_folder}<br>$ sudo composer install</pre>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Step 3: Create config.php</h2>
+      <p>You may copy the provided <code>config-sample.php</code> in <code>application/config/</code> folder. Update the required fields according to your needs.</p>
+      <pre>$ cd application/config<br>$ sudo cp config-sample.php config.php<br>$ sudo nano config.php</pre>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Step 4: Write-enable for www-data</h2>
+      <p>You need to allow the server to be able to write to <code>application/tmp/</code> folder and its subdirectories.</p>
+      <pre>$ cd ../tmp<br>$ sudo chown -R www-data .<br>$ sudo service nginx restart</pre>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Step 5: Update Server-Block</h2>
+      <p>Some adjustments are required on your nginx server blocks. This is important as index.php in public folder acts as the front-controller for your entire app.</p>
+      <pre>$ sudo nano /etc/nginx/sites-available/{project_folder}
+...
+location / {
+  root var/www/{project_folder}/public   # ensure root points to the public folder
+
+  location / {
+    try_files $uri $uri/ @mvcrewrite;
+  }
+
+  location @mvcrewrite {
+    rewrite ^(.+)$ /index.php?url=$1 last;
+  }
+}
+...
+$ sudo service nginx restart</pre>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Step 6: Enjoy your new framework!</h2>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

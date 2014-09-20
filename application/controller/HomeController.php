@@ -10,8 +10,9 @@ class HomeController extends BaseController
     if (!empty($bookName)) $this->displayItem($bookName);
     
     $this->render($this->_folder . 'index', array(
-      'metaTitle' => 'Hello World',
-      'metaDescription' => 'Thank you for using php-mvc framework by mosufy'
+      'metaTitle' => 'PHP-MVC Barebone Framework',
+      'metaDescription' => 'Thank you for using PHP-MVC Barebone Framework by mosufy. Learn Model-View-Controller by implementing it yourself.',
+      'page' => 'home'
     ));
   }
 	
