@@ -41,6 +41,7 @@ define('HTTP_PROTOCOL',(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
  * DOMAIN will take from HTTP_HOST. DOMAIN is especially useful for setting COOKIE
  */
 define('URL', HTTP_PROTOCOL . $_SERVER['HTTP_HOST'] . '/');
+define('DOMAIN', ltrim($_SERVER['HTTP_HOST'],'www.'));
 
 /**
  * PATH_VIEWS is the path where your view files are. Don't forget the trailing slash!
