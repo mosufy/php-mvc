@@ -18,7 +18,7 @@ class Bootstrap
     error_reporting(E_ALL);
     ini_set('display_errors','On');
     ini_set('log_errors', 'On');
-    ini_set('error_log', ROOT . './application/tmp/errors/error_'.date('Ymd').'.log');
+    ini_set('error_log', ROOT . '/application/tmp/errors/error_'.date('Ymd').'.log');
   }
   
   /**

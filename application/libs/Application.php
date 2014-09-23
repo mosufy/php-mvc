@@ -89,9 +89,9 @@ class Application
       }
       
       $this->_action = isset($url[1]) ? $this->camelCase($url[1]) : null;
-      $this->_parameter_1 = isset($url[2]) ? $this->camelCase($url[2]) : null;
-      $this->_parameter_2 = isset($url[3]) ? $this->camelCase($url[3]) : null;
-      $this->_parameter_3 = isset($url[4]) ? $this->camelCase($url[4]) : null;
+      $this->_parameter_1 = isset($url[2]) ? $url[2] : null;
+      $this->_parameter_2 = isset($url[3]) ? $url[3] : null;
+      $this->_parameter_3 = isset($url[4]) ? $url[4] : null;
     }
   }
   

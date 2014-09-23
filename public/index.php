@@ -19,6 +19,7 @@ if (file_exists(ROOT . '/vendor/autoload.php')) {
 
 // Custom auto-loader function
 function autoload($class_name){
+  $class_name = str_replace('\\','/',$class_name);
   if (is_readable(ROOT . '/application/models/' . $class_name . '.php')) {
     require_once ROOT . '/application/models/' . $class_name . '.php';
   } else if (is_readable(ROOT . '/application/libs/' . $class_name . '.php')) {
@@ -32,7 +33,7 @@ function autoload($class_name){
 if (is_readable(ROOT . '/application/config/config.php')) {
   require ROOT . '/application/config/config.php';
 } else {
-  echo 'Error: Missing required config.php in /application/config/';
+  echo 'Error: Missing required config.php';
   exit;
 }
 
