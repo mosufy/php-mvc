@@ -27,6 +27,7 @@ class Bootstrap
   */
   private function setSessionPath()
   {
+    session_set_cookie_params(0, '/', DOMAIN, HTTP_PROTOCOL=='https://'? true:false, true);
     ini_set('session.save_path',ROOT . '/application/tmp/sessions');
   }
   
