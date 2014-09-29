@@ -39,7 +39,7 @@ class AESEncryption
       $iv = mcrypt_create_iv($iv_size,MCRYPT_DEV_URANDOM);
       return base64_encode($iv.mcrypt_encrypt(MCRYPT_RIJNDAEL_256, ($key? $key:$this->_pKey), $value, MCRYPT_MODE_CBC, $iv));
     }
-    return '';
+    return null;
   }
   
   /*
@@ -57,6 +57,6 @@ class AESEncryption
       $value = substr($value,$iv_size);
       return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, ($key? $key:$this->_pKey), $value, MCRYPT_MODE_CBC, $iv));
     }
-    return '';
+    return null;
   }
 }
